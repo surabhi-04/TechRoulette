@@ -24,7 +24,9 @@ For software engineers, entry-level graduates, and competitive programmers, **ve
 ## 🎨 UI/UX Showcase
 
 ### Mastery Dashboard
-![TechRoulette Mastery Dashboard](https://tech-roulette.vercel.app/)
+![TechRoulette Mastery Dashboard]
+https://tech-roulette.vercel.app/
+
 
 ---
 

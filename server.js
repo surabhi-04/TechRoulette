@@ -22,6 +22,7 @@ const verboseSqlite = sqlite3.verbose();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const isVercel = process.env.VERCEL === '1';
 const JWT_SECRET = process.env.JWT_SECRET || 'techroulette-jwt-super-secret-key-12345';
 
 // Middlewares
@@ -30,11 +31,12 @@ app.use(cookieParser());
 app.use(cors());
 
 // Database Setup
-const db = new verboseSqlite.Database(path.join(__dirname, 'techroulette.db'), (err) => {
+const dbPath = isVercel ? '/tmp/techroulette.db' : path.join(__dirname, 'techroulette.db');
+const db = new verboseSqlite.Database(dbPath, (err) => {
     if (err) {
         console.error('Error opening SQLite database:', err);
     } else {
-        console.log('Connected to SQLite database "techroulette.db".');
+        console.log(`Connected to SQLite database "${dbPath}".`);
         initializeDatabase();
     }
 });
@@ -500,7 +502,11 @@ app.get('*', (req, res) => {
 });
 
 // Start Server
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-    console.log(process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'your_gemini_api_key_here' ? "✅ Gemini API Key Loaded" : "⚠️ No GEMINI_API_KEY found in .env, defaulting to local JSON");
-});
+if (process.env.NODE_ENV !== 'production' && !isVercel) {
+    app.listen(PORT, () => {
+        console.log(`Server running on http://localhost:${PORT}`);
+        console.log(process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'your_gemini_api_key_here' ? "✅ Gemini API Key Loaded" : "⚠️ No GEMINI_API_KEY found in .env, defaulting to local JSON");
+    });
+}
+
+export default app;

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Analytics - TechRoulette</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "surface": "#0F172A",
+                "on-primary": "#1000a9",
+                "primary-fixed": "#e1e0ff",
+                "error-container": "#93000a",
+                "on-error-container": "#ffdad6",
+                "inverse-on-surface": "#233143",
+                "tertiary-container": "#8990a8",
+                "on-secondary-container": "#00424e",
+                "on-error": "#690005",
+                "on-primary-container": "#0d0096",
+                "secondary": "#06B6D4",
+                "on-tertiary": "#283044",
+                "secondary-fixed": "#acedff",
+                "secondary-fixed-dim": "#4cd7f6",
+                "error": "#ffb4ab",
+                "surface-tint": "#c0c1ff",
+                "primary-fixed-dim": "#c0c1ff",
+                "on-background": "#F8FAFC",
+                "surface-container-low": "#1E293B",
+                "surface-bright": "#334155",
+                "on-tertiary-fixed": "#131b2e",
+                "on-tertiary-container": "#22293d",
+                "surface-container-lowest": "#020617",
+                "surface-container": "#1E293B",
+                "on-secondary": "#003640",
+                "tertiary": "#bec6e0",
+                "inverse-primary": "#494bd6",
+                "background": "#0F172A",
+                "surface-dim": "#0F172A",
+                "surface-variant": "#334155",
+                "primary": "#6366F1",
+                "on-secondary-fixed": "#001f26",
+                "on-primary-fixed": "#07006c",
+                "secondary-container": "#03b5d3",
+                "on-surface": "#F8FAFC",
+                "on-primary-fixed-variant": "#2f2ebe",
+                "on-secondary-fixed-variant": "#004e5c",
+                "surface-container-highest": "#334155",
+                "surface-container-high": "#334155",
+                "inverse-surface": "#F8FAFC",
+                "tertiary-fixed-dim": "#bec6e0",
+                "outline": "#64748B",
+                "on-tertiary-fixed-variant": "#3f465c",
+                "primary-container": "#8083ff",
+                "outline-variant": "#475569",
+                "tertiary-fixed": "#dae2fd",
+                "on-surface-variant": "#94A3B8"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "gutter": "24px",
+                "container-max": "1280px",
+                "margin-desktop": "40px",
+                "margin-mobile": "16px",
+                "unit": "4px"
+        },
+        "fontFamily": {
+                "headline-lg": [
+                        "Geist"
+                ],
+                "headline-md": [
+                        "Geist"
+                ],
+                "headline-xl": [
+                        "Geist"
+                ],
+                "label-caps": [
+                        "Geist"
+                ],
+                "code-md": [
+                        "JetBrains Mono"
+                ],
+                "body-md": [
+                        "Inter"
+                ],
+                "headline-lg-mobile": [
+                        "Geist"
+                ],
+                "body-lg": [
+                        "Inter"
+                ],
+                "body-sm": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "1.2",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "1.3",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-xl": [
+                        "48px",
+                        {
+                                "lineHeight": "1.1",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "label-caps": [
+                        "12px",
+                        {
+                                "lineHeight": "1.2",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "code-md": [
+                        "14px",
+                        {
+                                "lineHeight": "1.6",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "1.5",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "24px",
+                        {
+                                "lineHeight": "1.2",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "1.6",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-sm": [
+                        "14px",
+                        {
+                                "lineHeight": "1.5",
+                                "fontWeight": "400"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        body { background-color: theme('colors.surface'); color: theme('colors.on-surface'); }
+        .glass-card {
+            background-color: theme('colors.surface-container');
+            border: 1px solid theme('colors.outline-variant');
+        }
+        .glass-card-top-light {
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col md:flex-row bg-[#0F172A]">
+<!-- Mobile Top App Bar -->
+<header class="md:hidden sticky top-0 z-50 flex justify-between items-center w-full px-margin-mobile py-4 bg-[#0F172A]/80 backdrop-blur-md border-b border-outline-variant">
+<div class="font-headline-md text-headline-md font-bold text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="rocket_launch">rocket_launch</span>
+            TechRoulette
+        </div>
+<div class="flex gap-4 items-center">
+<span class="material-symbols-outlined text-on-surface cursor-pointer hover:bg-surface-bright transition-colors duration-200 p-2 rounded-full" data-icon="dark_mode">dark_mode</span>
+</div>
+</header>
+<!-- Side NavBar (Desktop) -->
+<nav class="hidden md:flex flex-col h-screen fixed left-0 top-0 pt-20 pb-10 px-4 bg-surface-container dark:bg-surface-container border-r border-outline-variant dark:border-outline-variant w-64 z-40">
+<div class="mb-8 flex items-center gap-3 px-4">
+<div class="w-12 h-12 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A detailed headshot portrait of a software engineer looking focused, softly lit with cool blue and purple hues, reflecting a modern tech environment. The background is a blurred dark office space with subtle neon accents. The mood is professional and intense." src="https://lh3.googleusercontent.com/aida-public/AB6AXuApUbMM-RREU9OIkLjK0bmQ-091Hdz-LxGeJW7tDu6d69i4o5iFc-Oz3R_UZ8bJ796VRpnieHkWD6bkofLR3PM8nUpVs7ZDQQ6MY35JI_Q-y01AT5VV4nbX8hUzMTrOpF_x44V-yD6eO_MdXuHNvAYJoH7V2Gz71Fi8OA-SKiMGOw6ysgLTRdu4WU_LlR4IKCQ16rKKHsHR0v8In_IhDIGZa8wf-qG-jHB1PFbvl4ciC8l9AtZHdCiC"/>
+</div>
+<div>
+<div class="font-headline-md text-headline-md text-on-surface">Dev Performance</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Senior Engineer Level</div>
+</div>
+</div>
+<div class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-bright dark:hover:bg-surface-bright transition-all font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+                History
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary bg-primary/10 border-r-2 border-primary font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined" data-icon="bar_chart" style="font-variation-settings: 'FILL' 1;">bar_chart</span>
+                Analytics
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-bright dark:hover:bg-surface-bright transition-all font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+                Domain Mastery
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-bright dark:hover:bg-surface-bright transition-all font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+</div>
+<div class="mt-auto space-y-2 pt-4 border-t border-outline-variant">
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-bright transition-all font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+                Documentation
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-bright transition-all font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                Help
+            </a>
+<button class="w-full mt-4 bg-gradient-to-r from-[#6366F1] to-indigo-600 text-white font-label-caps text-label-caps py-3 rounded-lg shadow-[0_0_15px_rgba(99,102,241,0.2)] hover:shadow-[0_0_20px_rgba(99,102,241,0.4)] transition-all uppercase">
+                Upgrade to Pro
+            </button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-1 md:ml-64 p-margin-mobile md:p-margin-desktop min-h-screen bg-[#0F172A] pb-24">
+<div class="max-w-container-max mx-auto">
+<header class="mb-8">
+<h1 class="font-headline-lg-mobile md:font-headline-xl text-headline-lg-mobile md:text-headline-xl text-white mb-2">Performance Analytics</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Track your technical communication metrics over time.</p>
+</header>
+<!-- Summary Stats -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+<div class="glass-card glass-card-top-light p-4 rounded-xl flex flex-col bg-[#1E293B] border-[#475569]">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-2 uppercase">Total Practice Time</span>
+<div class="font-headline-md text-headline-md text-primary">24h 15m</div>
+<div class="mt-2 text-secondary font-code-md text-code-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="trending_up">trending_up</span> +12%
+                    </div>
+</div>
+<div class="glass-card glass-card-top-light p-4 rounded-xl flex flex-col bg-[#1E293B] border-[#475569]">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-2 uppercase">Avg Pitch Duration</span>
+<div class="font-headline-md text-headline-md text-primary">3m 42s</div>
+<div class="mt-2 text-on-surface-variant font-code-md text-code-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="trending_flat">trending_flat</span> Stable
+                    </div>
+</div>
+<div class="glass-card glass-card-top-light p-4 rounded-xl flex flex-col bg-[#1E293B] border-[#475569]">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-2 uppercase">Topics Conquered</span>
+<div class="font-headline-md text-headline-md text-primary">142</div>
+<div class="mt-2 text-secondary font-code-md text-code-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="trending_up">trending_up</span> +5 this week
+                    </div>
+</div>
+<div class="glass-card glass-card-top-light p-4 rounded-xl flex flex-col bg-[#1E293B] border-[#475569]">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-2 uppercase">Confidence Score</span>
+<div class="font-headline-md text-headline-md text-primary">8.4/10</div>
+<div class="mt-2 text-secondary font-code-md text-code-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="trending_up">trending_up</span> +0.2
+                    </div>
+</div>
+</div>
+<!-- Charts Area -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Line Chart: Speaking Confidence -->
+<div class="lg:col-span-2 glass-card glass-card-top-light p-6 rounded-xl flex flex-col bg-[#1E293B] border-[#475569]">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-md text-headline-md text-white">Speaking Confidence</h2>
+<div class="flex gap-2">
+<span class="font-label-caps text-label-caps bg-primary/10 text-primary px-2 py-1 rounded border border-primary/20 uppercase">Monthly</span>
+</div>
+</div>
+<div class="flex-1 min-h-[250px] relative w-full rounded bg-[#0F172A] border border-outline-variant overflow-hidden flex items-end p-4 gap-2">
+<!-- Mock Line Chart Representation -->
+<div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent); background-size: 50px 50px;"></div>
+<svg class="w-full h-full text-primary absolute bottom-0 left-0" preserveaspectratio="none" viewbox="0 0 100 100">
+<path d="M0,80 Q10,70 20,60 T40,50 T60,30 T80,40 T100,10 L100,100 L0,100 Z" fill="url(#grad)" opacity="0.2"></path>
+<path d="M0,80 Q10,70 20,60 T40,50 T60,30 T80,40 T100,10" fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+<defs>
+<lineargradient id="grad" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="currentColor" stop-opacity="1"></stop>
+<stop offset="100%" stop-color="currentColor" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+</svg>
+</div>
+</div>
+<!-- Bar Chart: Topics Covered per Week -->
+<div class="glass-card glass-card-top-light p-6 rounded-xl flex flex-col bg-[#1E293B] border-[#475569]">
+<h2 class="font-headline-md text-headline-md text-white mb-6">Topics per Week</h2>
+<div class="flex-1 min-h-[250px] relative w-full flex items-end justify-between gap-2 px-2 pt-10">
+<!-- Bars -->
+<div class="w-full bg-primary/20 hover:bg-primary/40 transition-colors rounded-t-sm h-[40%] relative group">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity font-code-md text-code-md text-primary bg-[#0F172A] p-1 rounded border border-outline-variant">12</div>
+</div>
+<div class="w-full bg-primary/40 hover:bg-primary/60 transition-colors rounded-t-sm h-[60%] relative group">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity font-code-md text-code-md text-primary bg-[#0F172A] p-1 rounded border border-outline-variant">18</div>
+</div>
+<div class="w-full bg-primary/30 hover:bg-primary/50 transition-colors rounded-t-sm h-[50%] relative group">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity font-code-md text-code-md text-primary bg-[#0F172A] p-1 rounded border border-outline-variant">15</div>
+</div>
+<div class="w-full bg-primary hover:bg-primary-fixed transition-colors rounded-t-sm h-[90%] relative group shadow-[0_0_10px_rgba(99,102,241,0.3)]">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity font-code-md text-code-md text-primary bg-[#0F172A] p-1 rounded border border-outline-variant">27</div>
+</div>
+<div class="w-full bg-primary/50 hover:bg-primary/70 transition-colors rounded-t-sm h-[70%] relative group">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity font-code-md text-code-md text-primary bg-[#0F172A] p-1 rounded border border-outline-variant">21</div>
+</div>
+</div>
+<div class="flex justify-between mt-2 text-on-surface-variant font-label-caps text-label-caps uppercase">
+<span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>W5</span>
+</div>
+</div>
+</div>
+<!-- Recent Sessions Table -->
+<div class="mt-8 glass-card glass-card-top-light rounded-xl overflow-hidden bg-[#1E293B] border-[#475569]">
+<div class="p-6 border-b border-outline-variant">
+<h2 class="font-headline-md text-headline-md text-white">Recent Sessions</h2>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high border-b border-outline-variant font-label-caps text-label-caps text-on-surface-variant uppercase">
+<th class="p-4 font-normal">Topic</th>
+<th class="p-4 font-normal">Duration</th>
+<th class="p-4 font-normal">Score</th>
+<th class="p-4 font-normal">Date</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm text-on-surface">
+<tr class="border-b border-outline-variant/50 hover:bg-surface-bright/50 transition-colors">
+<td class="p-4">Microservices Architecture</td>
+<td class="p-4 font-code-md text-code-md text-on-surface-variant">05:12</td>
+<td class="p-4"><span class="bg-secondary/10 text-secondary px-2 py-1 rounded border border-secondary/20">9.2</span></td>
+<td class="p-4 text-on-surface-variant">Oct 24</td>
+</tr>
+<tr class="border-b border-outline-variant/50 hover:bg-surface-bright/50 transition-colors">
+<td class="p-4">React State Management</td>
+<td class="p-4 font-code-md text-code-md text-on-surface-variant">03:45</td>
+<td class="p-4"><span class="bg-primary/10 text-primary px-2 py-1 rounded border border-primary/20">8.5</span></td>
+<td class="p-4 text-on-surface-variant">Oct 22</td>
+</tr>
+<tr class="hover:bg-surface-bright/50 transition-colors">
+<td class="p-4">System Design: Rate Limiter</td>
+<td class="p-4 font-code-md text-code-md text-on-surface-variant">08:30</td>
+<td class="p-4"><span class="bg-primary/10 text-primary px-2 py-1 rounded border border-primary/20">8.8</span></td>
+<td class="p-4 text-on-surface-variant">Oct 20</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Bottom Nav -->
+<nav class="md:hidden fixed bottom-0 w-full bg-[#1E293B] border-t border-outline-variant z-50 flex justify-around items-center pb-safe pt-2 px-2">
+<a class="flex flex-col items-center p-2 text-on-surface-variant hover:text-white" href="#">
+<span class="material-symbols-outlined mb-1 text-[24px]" data-icon="history">history</span>
+<span class="font-label-caps text-[10px] uppercase">History</span>
+</a>
+<a class="flex flex-col items-center p-2 text-primary font-bold" href="#">
+<div class="bg-primary/20 rounded-full px-5 py-1 mb-1">
+<span class="material-symbols-outlined text-[24px]" data-icon="bar_chart" style="font-variation-settings: 'FILL' 1;">bar_chart</span>
+</div>
+<span class="font-label-caps text-[10px] uppercase">Analytics</span>
+</a>
+<a class="flex flex-col items-center p-2 text-on-surface-variant hover:text-white" href="#">
+<span class="material-symbols-outlined mb-1 text-[24px]" data-icon="category">category</span>
+<span class="font-label-caps text-[10px] uppercase">Mastery</span>
+</a>
+<a class="flex flex-col items-center p-2 text-on-surface-variant hover:text-white" href="#">
+<span class="material-symbols-outlined mb-1 text-[24px]" data-icon="settings">settings</span>
+<span class="font-label-caps text-[10px] uppercase">Settings</span>
+</a>
+</nav>
+</body></html>

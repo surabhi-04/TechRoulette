@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TechRoulette - Domain Mastery</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#bec6e0",
+                        "tertiary-fixed": "#dae2fd",
+                        "on-tertiary": "#283044",
+                        "tertiary": "#bec6e0",
+                        "on-tertiary-fixed-variant": "#3f465c",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "surface": "#051424",
+                        "surface-container-highest": "#273647",
+                        "on-surface": "#d4e4fa",
+                        "inverse-primary": "#494bd6",
+                        "on-tertiary-fixed": "#131b2e",
+                        "error-container": "#93000a",
+                        "on-primary-container": "#0d0096",
+                        "secondary-container": "#03b5d3",
+                        "on-surface-variant": "#c7c4d7",
+                        "secondary": "#4cd7f6",
+                        "surface-container-high": "#1c2b3c",
+                        "on-primary": "#1000a9",
+                        "surface-variant": "#273647",
+                        "on-primary-fixed": "#07006c",
+                        "surface-dim": "#051424",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "outline-variant": "#464554",
+                        "surface-container-lowest": "#010f1f",
+                        "on-tertiary-container": "#22293d",
+                        "surface-container-low": "#0d1c2d",
+                        "on-secondary-container": "#00424e",
+                        "surface-bright": "#2c3a4c",
+                        "inverse-on-surface": "#233143",
+                        "on-error": "#690005",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "on-background": "#d4e4fa",
+                        "primary-container": "#8083ff",
+                        "on-secondary-fixed": "#001f26",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#acedff",
+                        "outline": "#908fa0",
+                        "on-secondary": "#003640",
+                        "surface-tint": "#c0c1ff",
+                        "tertiary-container": "#8990a8",
+                        "background": "#051424",
+                        "surface-container": "#122131",
+                        "primary": "#c0c1ff",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#e1e0ff",
+                        "inverse-surface": "#d4e4fa"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "16px",
+                        "unit": "4px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "code-md": ["JetBrains Mono"],
+                        "label-caps": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Geist"],
+                        "headline-xl": ["Geist"],
+                        "headline-md": ["Geist"],
+                        "headline-lg": ["Geist"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "code-md": ["14px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "headline-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .circular-chart {
+            display: block;
+            margin: 0 auto;
+            max-width: 80%;
+            max-height: 250px;
+        }
+        .circle-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.05);
+            stroke-width: 3.8;
+        }
+        .circle {
+            fill: none;
+            stroke-width: 2.8;
+            stroke-linecap: round;
+            animation: progress 1s ease-out forwards;
+        }
+        @keyframes progress {
+            0% { stroke-dasharray: 0 100; }
+        }
+        .percentage {
+            fill: #d4e4fa; /* on-surface */
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.5em;
+            text-anchor: middle;
+            font-weight: 600;
+        }
+        
+        /* Glassmorphism utilities */
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex flex-col md:flex-row md:hidden">
+<!-- TopNavBar (Mobile Shell) -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-margin-mobile py-4 bg-surface-dim/80 backdrop-blur-md border-b border-outline-variant">
+<div class="font-headline-md text-headline-md font-bold text-primary flex items-center gap-2">
+            TechRoulette
+        </div>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">terminal</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">mic</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">dark_mode</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">code</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 px-margin-mobile py-6 overflow-y-auto">
+<header class="mb-8">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-2">Domain Mastery</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Track your technical proficiency across core disciplines.</p>
+</header>
+<!-- Overall Progress Bento Box -->
+<section class="glass-panel rounded-xl p-6 mb-8 flex items-center justify-between">
+<div>
+<div class="font-label-caps text-label-caps text-secondary mb-1">GLOBAL TIER</div>
+<div class="font-headline-md text-headline-md text-on-surface">Competent</div>
+<div class="font-code-md text-code-md text-on-surface-variant mt-2">Lvl 42 · 8,450 XP</div>
+</div>
+<div class="w-24 h-24">
+<svg class="circular-chart text-secondary" viewbox="0 0 36 36">
+<path class="circle-bg" d="M18 2.0845
+                        a 15.9155 15.9155 0 0 1 0 31.831
+                        a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+<path class="circle stroke-current" d="M18 2.0845
+                        a 15.9155 15.9155 0 0 1 0 31.831
+                        a 15.9155 15.9155 0 0 1 0 -31.831" stroke-dasharray="68, 100"></path>
+<text class="percentage" x="18" y="20.35">68%</text>
+</svg>
+</div>
+</section>
+<!-- Domains Grid -->
+<div class="grid grid-cols-2 gap-4 mb-24">
+<!-- Java -->
+<div class="glass-panel rounded-lg p-4 flex flex-col items-center">
+<div class="w-full flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-secondary">coffee</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-high px-2 py-1 rounded">EXPERT</span>
+</div>
+<div class="w-20 h-20 mb-3">
+<svg class="circular-chart text-primary" viewbox="0 0 36 36">
+<path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+<path class="circle stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke-dasharray="92, 100"></path>
+<text class="percentage" x="18" y="20.35">92%</text>
+</svg>
+</div>
+<h3 class="font-body-md text-body-md font-semibold text-on-surface">Java</h3>
+</div>
+<!-- Operating Systems -->
+<div class="glass-panel rounded-lg p-4 flex flex-col items-center">
+<div class="w-full flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-secondary">memory</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-high px-2 py-1 rounded">COMPETENT</span>
+</div>
+<div class="w-20 h-20 mb-3">
+<svg class="circular-chart text-secondary" viewbox="0 0 36 36">
+<path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+<path class="circle stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke-dasharray="65, 100"></path>
+<text class="percentage" x="18" y="20.35">65%</text>
+</svg>
+</div>
+<h3 class="font-body-md text-body-md font-semibold text-on-surface">OS</h3>
+</div>
+<!-- Networks -->
+<div class="glass-panel rounded-lg p-4 flex flex-col items-center">
+<div class="w-full flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-secondary">router</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-high px-2 py-1 rounded">COMPETENT</span>
+</div>
+<div class="w-20 h-20 mb-3">
+<svg class="circular-chart text-secondary-fixed" viewbox="0 0 36 36">
+<path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+<path class="circle stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke-dasharray="54, 100"></path>
+<text class="percentage" x="18" y="20.35">54%</text>
+</svg>
+</div>
+<h3 class="font-body-md text-body-md font-semibold text-on-surface">Networks</h3>
+</div>
+<!-- SQL -->
+<div class="glass-panel rounded-lg p-4 flex flex-col items-center">
+<div class="w-full flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-secondary">database</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-high px-2 py-1 rounded">NOVICE</span>
+</div>
+<div class="w-20 h-20 mb-3">
+<svg class="circular-chart text-tertiary" viewbox="0 0 36 36">
+<path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+<path class="circle stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke-dasharray="28, 100"></path>
+<text class="percentage" x="18" y="20.35">28%</text>
+</svg>
+</div>
+<h3 class="font-body-md text-body-md font-semibold text-on-surface">SQL</h3>
+</div>
+<!-- System Design -->
+<div class="glass-panel rounded-lg p-4 flex flex-col items-center col-span-2">
+<div class="w-full flex justify-between items-center mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">architecture</span>
+<h3 class="font-body-md text-body-md font-semibold text-on-surface">System Design</h3>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-high px-2 py-1 rounded">NOVICE</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2.5 mb-1 border border-outline-variant/30">
+<div class="bg-tertiary h-2.5 rounded-full" style="width: 15%"></div>
+</div>
+<div class="w-full text-right font-code-md text-code-md text-on-surface-variant text-xs">
+                    15%
+                </div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Shell Placeholder (Mobile) -->
+<!-- Assuming a BottomNavBar exists for mobile, rendering a simplified version based on semantic intent "Domain Mastery" -->
+<nav class="fixed bottom-0 w-full bg-surface-container border-t border-outline-variant/20 pb-safe z-50 flex justify-around py-3">
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-caps text-[10px]">History</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-label-caps text-[10px]">Analytics</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<div class="bg-primary/20 px-4 py-1 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">category</span>
+</div>
+<span class="font-label-caps text-[10px] font-bold">Domain Mastery</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-[10px]">Settings</span>
+</a>
+</nav>
+</body></html>

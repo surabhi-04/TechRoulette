@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>TechRoulette - CS Impromptu Speaking</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Stylesheets -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="./styles.css" rel="stylesheet"/>
+
+    <!-- Tailwind System Config mapping Stitch classes to Slate/Indigo/Emerald design -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#6366F1", // Indigo
+                        "secondary": "#22D3EE", // Cyan
+                        "emerald": "#10B981", // Emerald
+                        "surface": "#0F172A", // Slate dark background
+                        "background": "#0F172A",
+                        "surface-container-low": "#1E293B", // Slate-800
+                        "surface-container": "#1E293B",
+                        "surface-container-high": "#334155", // Slate-700
+                        "surface-container-highest": "#475569", // Slate-600
+                        "on-surface": "#F8FAFC", // Slate-50
+                        "on-surface-variant": "#94A3B8", // Slate-400
+                        "outline-variant": "#334155",
+                        "outline": "#475569",
+                        "tertiary": "#A5B4FC",
+                        "tertiary-container": "#312E81",
+                        "primary-container": "#312E81",
+                        "secondary-container": "#164E63",
+                        "tertiary-fixed-dim": "#94A3B8",
+                        "tertiary-fixed": "#E2E8F0",
+                        "on-tertiary": "#1E293B",
+                        "on-tertiary-container": "#E0E7FF",
+                        "primary-fixed-dim": "#818CF8",
+                        "primary-fixed": "#EEF2F6",
+                        "on-primary": "#FFFFFF",
+                        "on-primary-fixed": "#312E81",
+                        "on-primary-fixed-variant": "#4338CA",
+                        "on-secondary": "#0F172A",
+                        "on-secondary-fixed": "#083344",
+                        "on-secondary-fixed-variant": "#155E75",
+                        "secondary-fixed": "#ECFEFF",
+                        "secondary-fixed-dim": "#67E8F9",
+                        "inverse-primary": "#818CF8",
+                        "inverse-surface": "#F1F5F9",
+                        "inverse-on-surface": "#0F172A",
+                        "error": "#F43F5E",
+                        "error-container": "#881337",
+                        "on-error": "#FFFFFF",
+                        "on-error-container": "#FFE4E6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "16px",
+                        "unit": "4px",
+                        "container-max": "1200px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "code-md": ["JetBrains Mono", "monospace"],
+                        "label-caps": ["JetBrains Mono", "monospace"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "headline-lg-mobile": ["Outfit", "sans-serif"],
+                        "headline-xl": ["Outfit", "sans-serif"],
+                        "headline-md": ["Outfit", "sans-serif"],
+                        "headline-lg": ["Outfit", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-body-md text-body-md text-on-surface min-h-screen md:min-h-[calc(100vh-3rem)] md:my-6 flex flex-col justify-between max-w-5xl mx-auto md:rounded-2xl md:border md:border-slate-800/80 md:shadow-2xl overflow-x-hidden selection:bg-primary-container/30 selection:text-indigo-300 antialiased bg-[#0B0F19]/90 relative">
+
+    <!-- Authentication Card Overlay -->
+    <div id="auth-container" class="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-950/95 backdrop-blur-md">
+        <!-- Ambient Neon Glow inside Auth -->
+        <div class="pointer-events-none absolute top-1/4 left-1/4 w-72 h-72 bg-indigo-600/15 rounded-full blur-3xl -z-10 animate-pulse"></div>
+        <div class="pointer-events-none absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan-600/10 rounded-full blur-3xl -z-10 animate-pulse"></div>
+
+        <div class="glass-panel-heavy rounded-2xl w-full max-w-md p-8 border border-slate-800/80 shadow-2xl relative flex flex-col gap-6">
+            <!-- App Logo / Title -->
+            <div class="flex flex-col items-center gap-2 mb-2">
+                <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">terminal</span>
+                </div>
+                <h2 class="font-label-caps text-xs tracking-widest text-primary font-bold m-0">TECHROULETTE</h2>
+                <p class="text-xs text-on-surface-variant m-0">Elevate your CS technical speaking skills</p>
+            </div>
+
+            <!-- Tab Headers -->
+            <div class="grid grid-cols-2 bg-slate-900/60 p-1 rounded-lg border border-slate-800">
+                <button id="auth-tab-signin" type="button" class="py-2.5 text-xs font-label-caps font-bold rounded-md bg-indigo-500 text-white transition-all shadow-sm">SIGN IN</button>
+                <button id="auth-tab-signup" type="button" class="py-2.5 text-xs font-label-caps font-bold rounded-md text-slate-400 hover:text-slate-200 transition-all">CREATE ACCOUNT</button>
+            </div>
+
+            <!-- Error Banner -->
+            <div id="auth-general-error" class="hidden p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-body-sm flex items-start gap-2">
+                <span class="material-symbols-outlined text-sm mt-0.5">error</span>
+                <span id="auth-general-error-text">Invalid credentials.</span>
+            </div>
+
+            <!-- Sign-In Form -->
+            <form id="auth-form-signin" class="flex flex-col gap-4">
+                <div class="flex flex-col gap-1.5">
+                    <label class="font-label-caps text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Email or Username</label>
+                    <input type="text" id="signin-loginid" required class="w-full bg-slate-900 border border-slate-700/60 rounded-lg py-2.5 px-3 text-on-surface font-body-md text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-slate-600" placeholder="Enter username or email...">
+                </div>
+                
+                <div class="flex flex-col gap-1.5">
+                    <label class="font-label-caps text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Password</label>
+                    <input type="password" id="signin-password" required class="w-full bg-slate-900 border border-slate-700/60 rounded-lg py-2.5 px-3 text-on-surface font-body-md text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-slate-600" placeholder="••••••••">
+                </div>
+
+                <div class="flex items-center justify-between py-1 select-none">
+                    <label class="flex items-center gap-2 cursor-pointer text-xs text-on-surface-variant hover:text-on-surface transition-colors">
+                        <input type="checkbox" id="signin-rememberme" class="rounded border-slate-700 bg-slate-900 text-primary focus:ring-0 focus:ring-offset-0">
+                        <span>Remember Me</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="mt-2 w-full btn-primary-gradient rounded-lg py-3 flex justify-center items-center gap-2 text-white font-semibold tracking-wider active:scale-[0.98]">
+                    <span class="font-label-caps text-xs tracking-wider uppercase text-white font-semibold">SIGN IN</span>
+                </button>
+            </form>
+
+            <!-- Sign-Up Form (Hidden by default) -->
+            <form id="auth-form-signup" class="hidden flex flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                    <label class="font-label-caps text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Username</label>
+                    <input type="text" id="signup-username" required class="w-full bg-slate-900 border border-slate-700/60 rounded-lg py-2.5 px-3 text-on-surface font-body-md text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-slate-600" placeholder="alphanumeric, lowercase only">
+                    <span id="signup-username-err" class="text-[11px] text-rose-400 font-body-sm font-medium hidden">Username must be 3-20 chars, lowercase start, alphanumeric.</span>
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label class="font-label-caps text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Email Address</label>
+                    <input type="email" id="signup-email" required class="w-full bg-slate-900 border border-slate-700/60 rounded-lg py-2.5 px-3 text-on-surface font-body-md text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-slate-600" placeholder="you@example.com">
+                    <span id="signup-email-err" class="text-[11px] text-rose-400 font-body-sm font-medium hidden">Must be a valid email format.</span>
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label class="font-label-caps text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Password</label>
+                    <input type="password" id="signup-password" required class="w-full bg-slate-900 border border-slate-700/60 rounded-lg py-2.5 px-3 text-on-surface font-body-md text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-slate-600" placeholder="Min 8 chars, 1 uppercase, 1 lowercase, 1 digit, 1 symbol">
+                    <span id="signup-password-err" class="text-[11px] text-rose-400 font-body-sm font-medium hidden">Must meet strength criteria.</span>
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label class="font-label-caps text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Confirm Password</label>
+                    <input type="password" id="signup-confirm" required class="w-full bg-slate-900 border border-slate-700/60 rounded-lg py-2.5 px-3 text-on-surface font-body-md text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-slate-600" placeholder="Re-enter password">
+                    <span id="signup-confirm-err" class="text-[11px] text-rose-400 font-body-sm font-medium hidden">Passwords do not match.</span>
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label class="font-label-caps text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Primary Target Language</label>
+                    <select id="signup-lang" class="w-full bg-slate-900 border border-slate-700/60 rounded-lg py-2.5 px-3 text-on-surface font-code-md text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all">
+                        <option value="Java">Java</option>
+                        <option value="Python">Python</option>
+                        <option value="C++">C++</option>
+                        <option value="C">C</option>
+                        <option value="JavaScript">JavaScript</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="mt-2 w-full btn-primary-gradient rounded-lg py-3 flex justify-center items-center gap-2 text-white font-semibold tracking-wider active:scale-[0.98]">
+                    <span class="font-label-caps text-xs tracking-wider uppercase text-white font-semibold">CREATE ACCOUNT</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Ambient Neon Glow Orbs -->
+    <div class="pointer-events-none absolute top-10 left-10 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl -z-10"></div>
+    <div class="pointer-events-none absolute bottom-10 right-10 w-[30rem] h-[30rem] bg-purple-600/10 rounded-full blur-3xl -z-10"></div>
+    <div class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-cyan-500/5 rounded-full blur-[100px] -z-10"></div>
+
+    <!-- Header Navigation -->
+    <header class="w-full z-50 bg-slate-900/60 backdrop-blur-md border-b border-slate-800/50 flex justify-between items-center px-6 h-14 transition-all">
+        <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1;">terminal</span>
+            <h1 class="font-label-caps text-xs tracking-widest text-primary m-0 font-bold">TECHROULETTE</h1>
+        </div>
+        
+        <div class="flex items-center gap-3">
+            <!-- Language Selector Dropdown -->
+            <div class="relative">
+                <button id="header-lang-btn" class="flex items-center gap-2 px-3 py-1.5 rounded-md glass-panel text-on-surface-variant hover:text-primary hover:bg-primary/10 transition-colors active:scale-95 duration-150">
+                    <span class="font-label-caps text-xs font-semibold selected-lang-label">JAVA</span>
+                    <span class="material-symbols-outlined text-sm">language</span>
+                </button>
+                <div id="header-lang-dropdown" class="hidden absolute right-0 mt-2 w-36 glass-panel-heavy rounded-lg shadow-xl py-1 z-50 border border-slate-700/50">
+                    <a href="#" class="lang-dropdown-option block px-4 py-2 text-xs font-label-caps text-slate-300 hover:text-primary hover:bg-indigo-500/10 transition-colors" data-lang="Java">JAVA</a>
+                    <a href="#" class="lang-dropdown-option block px-4 py-2 text-xs font-label-caps text-slate-300 hover:text-primary hover:bg-indigo-500/10 transition-colors" data-lang="Python">PYTHON</a>
+                    <a href="#" class="lang-dropdown-option block px-4 py-2 text-xs font-label-caps text-slate-300 hover:text-primary hover:bg-indigo-500/10 transition-colors" data-lang="C++">C++</a>
+                    <a href="#" class="lang-dropdown-option block px-4 py-2 text-xs font-label-caps text-slate-300 hover:text-primary hover:bg-indigo-500/10 transition-colors" data-lang="C">C</a>
+                    <a href="#" class="lang-dropdown-option block px-4 py-2 text-xs font-label-caps text-slate-300 hover:text-primary hover:bg-indigo-500/10 transition-colors" data-lang="JavaScript">JAVASCRIPT</a>
+                </div>
+            </div>
+            
+            <!-- User Profile Quick Access Button -->
+            <button id="header-profile-btn" class="w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center hover:border-primary transition-all active:scale-95 duration-150 overflow-hidden" title="Edit Profile">
+                <!-- Injected via JS -->
+            </button>
+
+            <!-- Logout Button in Top Nav -->
+            <button id="header-logout-btn" class="hidden w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center hover:border-red-400 hover:text-red-400 text-on-surface-variant transition-all active:scale-95 duration-150" title="Log Out">
+                <span class="material-symbols-outlined text-lg">logout</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main View Panel Area -->
+    <main class="flex-1 px-margin-mobile py-6 flex flex-col gap-6 max-w-container-max mx-auto w-full">
+        
+        <!-- ================= MASTERY VIEW PANEL ================= -->
+        <div id="view-panel-mastery" class="view-slide flex flex-col gap-6 w-full">
+            
+            <!-- Dashboard Idle View -->
+            <div id="dashboard-idle-view" class="flex flex-col gap-6 w-full">
+                <!-- Streak & Rank Stats Grid -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="glass-panel rounded-xl p-4 flex flex-col justify-center items-start relative overflow-hidden">
+                        <span class="font-label-caps text-[10px] text-on-surface-variant mb-1.5 font-semibold uppercase tracking-wider">Daily Streak</span>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-2xl flame-active" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+                            <div class="flex items-baseline gap-1">
+                                <span class="font-headline-lg-mobile text-2xl text-on-surface font-bold streak-count">0</span>
+                                <span class="font-body-sm text-xs text-on-surface-variant">Days</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-panel rounded-xl p-4 flex flex-col justify-center items-start">
+                        <span class="font-label-caps text-[10px] text-on-surface-variant mb-1.5 font-semibold uppercase tracking-wider">Global Rank</span>
+                        <div class="flex items-baseline overflow-hidden h-8">
+                            <span class="font-headline-lg-mobile text-2xl text-secondary font-bold global-rank-display slide-up-rank">#10,540</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Topic Roulette Spin Card -->
+                <div id="roulette-spin-container" class="glass-panel rounded-xl p-6 flex flex-col gap-5 relative overflow-hidden transition-all duration-300 min-h-[220px]">
+                    <!-- Gradient decor light -->
+                    <div class="absolute -top-12 -right-12 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="absolute -bottom-12 -left-12 w-40 h-40 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                    
+                    <div class="flex flex-wrap items-center justify-between z-10 gap-2">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-chip rounded px-2.5 py-1 font-code-md text-xs text-indigo-300 font-semibold selected-lang-label">JAVA</span>
+                            <span class="glass-panel rounded px-2.5 py-1 font-code-md text-xs text-on-surface-variant border-slate-700/40">Impromptu Roulette</span>
+                        </div>
+                        <!-- Status indicator -->
+                        <span id="roulette-status-label" class="font-label-caps text-[10px] text-cyan-400 font-bold uppercase tracking-widest transition-all">YOUR TOPIC</span>
+                    </div>
+                    
+                    <h2 id="roulette-topic-title" class="font-serif tracking-tight text-slate-100 text-2xl sm:text-3xl font-medium z-10 pr-4 leading-normal min-h-[96px] flex items-center">
+                        Spin to generate a random Computer Science interview topic matching your language...
+                    </h2>
+
+                    <!-- SPIN CTA Button -->
+                    <div class="mt-2 z-10">
+                        <button id="main-spin-btn" class="spin-btn w-full btn-electric-glow rounded-lg py-4 flex justify-center items-center gap-2 text-white font-semibold tracking-wider active:scale-[0.98] disabled:opacity-50">
+                            <span class="material-symbols-outlined text-white text-lg animate-spin-slow" style="font-variation-settings: 'FILL' 1;">sync</span>
+                            <span class="font-label-caps text-xs tracking-wider uppercase text-white font-semibold">SPIN TOPIC</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prep Phase Screen (Hidden by default) -->
+            <div id="dashboard-prep-view" class="hidden flex flex-col gap-5 w-full">
+                <!-- Spun Topic Tag Card -->
+                <div class="glass-panel rounded-xl p-5 flex flex-col gap-3 relative overflow-hidden">
+                    <div class="flex justify-between items-start gap-4">
+                        <div class="flex flex-wrap gap-2">
+                            <span id="prep-topic-difficulty" class="tech-chip rounded px-2 py-0.5 font-code-md text-xs text-indigo-300 font-medium">Advanced</span>
+                            <span id="prep-topic-domain" class="glass-panel rounded px-2 py-0.5 font-code-md text-xs text-on-surface-variant">Operating Systems</span>
+                            <span id="prep-topic-source-badge" class="rounded px-2 py-0.5 font-code-md text-xs font-semibold bg-slate-800 text-slate-400 border border-slate-700/50">📚 Curated CS Core</span>
+                        </div>
+                        <span class="material-symbols-outlined text-indigo-400 text-xl" id="prep-topic-icon">memory</span>
+                    </div>
+                    <h2 id="prep-topic-title" class="font-headline-md text-lg text-on-surface font-semibold leading-snug">
+                        Deadlock Prevention & Coffman Conditions
+                    </h2>
+                </div>
+
+                <!-- Guidance Checklist -->
+                <div class="glass-panel rounded-xl p-5 flex flex-col gap-4">
+                    <h3 class="font-label-caps text-xs font-semibold text-indigo-300 tracking-wider uppercase">Key Talking Points</h3>
+                    <ul id="prep-research-points" class="flex flex-col gap-3">
+                        <!-- Bullets loaded dynamically -->
+                    </ul>
+                </div>
+
+                <!-- 10 Minute Countdown Card with Circular Progress Ring -->
+                <div class="glass-panel rounded-xl p-5 flex flex-col gap-4 items-center">
+                    <span class="font-label-caps text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">Prep Time Remaining</span>
+                    
+                    <div class="relative w-40 h-40 flex items-center justify-center">
+                        <svg class="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
+                            <circle class="circle-bg stroke-slate-800/80" cx="50" cy="50" r="44" fill="none" stroke-width="4.5"></circle>
+                            <circle id="prep-progress-ring" class="stroke-primary" cx="50" cy="50" r="44" fill="none" stroke-width="4.5" stroke-dasharray="276.4" stroke-dashoffset="0" stroke-linecap="round"></circle>
+                        </svg>
+                        <div id="prep-timer-display" class="font-headline-xl text-3xl text-on-surface tracking-tighter font-bold tabular-nums relative z-10 select-none">
+                            10:00
+                        </div>
+                    </div>
+                    
+                    <!-- Controls -->
+                    <div class="grid grid-cols-2 gap-3 w-full mt-2">
+                        <button id="prep-spin-again-btn" class="flex items-center justify-center gap-2 py-3 px-4 rounded-lg bg-indigo-500/10 text-indigo-400 font-semibold text-xs font-label-caps transition-colors border border-indigo-500/20 active:scale-[0.98] hover:bg-indigo-500/20">
+                            <span class="material-symbols-outlined text-base">sync</span>
+                            <span>Spin Again</span>
+                        </button>
+                        <button id="prep-skip-btn" class="flex items-center justify-center gap-2 py-3 px-4 rounded-lg bg-indigo-600 text-white font-semibold text-xs font-label-caps hover:bg-indigo-500 transition-colors active:scale-[0.98]">
+                            <span class="material-symbols-outlined text-base">mic</span>
+                            <span>Finish Prep & Start Pitch</span>
+                        </button>
+                    </div>
+                    <button id="prep-cancel-btn" class="text-xs text-on-surface-variant hover:text-red-400 font-label-caps tracking-wider uppercase mt-1">
+                        Cancel session
+                    </button>
+                </div>
+
+                <!-- Scratchpad outline -->
+                <div class="flex flex-col gap-2">
+                    <label class="font-label-caps text-xs font-semibold text-on-surface-variant tracking-wider uppercase">Outline Notes</label>
+                    <div class="code-scratchpad rounded-xl p-4 min-h-[160px] border border-slate-700/50">
+                        <div id="notes-scratchpad" class="font-code-md text-sm whitespace-pre-wrap outline-none w-full h-full resize-none overflow-y-auto outline-0" contenteditable="true" spellcheck="false">
+                            <span class="text-slate-500 italic">// Write your outline notes here... Click to edit.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Speaking Phase Screen (Hidden by default) -->
+            <div id="dashboard-speaking-view" class="hidden flex flex-col gap-6 w-full">
+                <!-- Topic details -->
+                <div class="glass-panel rounded-xl p-5 flex flex-col gap-3">
+                    <div class="flex flex-wrap gap-2">
+                        <span id="speak-topic-tag" class="tech-chip rounded px-2.5 py-0.5 font-code-md text-xs text-indigo-300 font-semibold">Java</span>
+                        <span id="speak-topic-domain" class="glass-panel rounded px-2.5 py-0.5 font-code-md text-xs text-on-surface-variant">Operating Systems</span>
+                    </div>
+                    <h2 id="speak-topic-title" class="font-headline-md text-lg text-on-surface font-semibold leading-snug">
+                        Deadlock Prevention & Coffman Conditions
+                    </h2>
+                </div>
+
+                <!-- Timer display and progress colored bar -->
+                <div class="glass-panel rounded-xl p-6 flex flex-col gap-5 items-center relative overflow-hidden">
+                    <span class="font-label-caps text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">Speaking Duration</span>
+                    <div id="speak-stopwatch-display" class="font-headline-xl text-6xl text-yellow-400 tracking-tighter font-extrabold tabular-nums transition-colors duration-300">
+                        00:00
+                    </div>
+                    
+                    <!-- Progress color bar -->
+                    <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden max-w-xs border border-slate-700">
+                        <div id="speak-progress-color-indicator" class="bg-yellow-400 h-full rounded-full w-full transition-colors duration-300"></div>
+                    </div>
+
+                    <!-- Target range hints -->
+                    <div class="flex justify-between w-full max-w-xs text-[10px] font-label-caps text-slate-500 mt-1">
+                        <span>Min (2:00)</span>
+                        <span>Max (5:00)</span>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="flex flex-col gap-3 w-full">
+                    <button id="speak-finish-btn" class="w-full btn-primary-gradient text-white rounded-lg py-4 flex justify-center items-center gap-2 font-semibold active:scale-[0.98]">
+                        <span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                        <span class="font-label-caps text-xs tracking-wider uppercase text-white">FINISH SPEECH</span>
+                    </button>
+                    <button id="speak-cancel-btn" class="text-xs text-on-surface-variant hover:text-red-400 font-label-caps tracking-wider uppercase text-center mt-1">
+                        Cancel speech
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ================= HISTORY VIEW PANEL ================= -->
+        <div id="view-panel-history" class="view-slide view-hidden flex flex-col gap-4 w-full">
+            <header class="mb-4">
+                <h1 class="font-headline-lg-mobile text-2xl font-bold text-on-surface mb-1">Speech History</h1>
+                <p class="font-body-sm text-sm text-on-surface-variant">Review your completed CS interview speaking sessions.</p>
+            </header>
+            <div id="history-list" class="flex flex-col gap-4">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+
+        <!-- ================= ANALYTICS VIEW PANEL ================= -->
+        <div id="view-panel-analytics" class="view-slide view-hidden flex flex-col gap-6 w-full">
+            <header class="mb-2">
+                <h1 class="font-headline-lg-mobile text-2xl font-bold text-on-surface mb-1">Domain Mastery</h1>
+                <p class="font-body-sm text-sm text-on-surface-variant">Track your technical speaking progress across computer science domains.</p>
+            </header>
+
+            <!-- Overall rank/XP card -->
+            <section class="glass-panel rounded-xl p-6 flex items-center justify-between">
+                <div>
+                    <div class="font-label-caps text-[10px] text-secondary font-bold mb-1 tracking-wider uppercase">Global Tier</div>
+                    <div class="font-headline-md text-2xl font-bold text-on-surface global-tier">Novice</div>
+                    <div id="analytics-overall-level" class="font-code-md text-xs text-on-surface-variant mt-2 font-semibold">Lvl 1 · 0 XP</div>
+                </div>
+                <div class="w-20 h-20">
+                    <svg class="circular-chart text-secondary" viewBox="0 0 36 36">
+                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                        <path class="circle stroke-current rank-progress-path" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke-dasharray="0, 100"></path>
+                        <text class="percentage rank-progress-percentage" x="18" y="20.35">0%</text>
+                    </svg>
+                </div>
+            </section>
+
+            <!-- Metrics -->
+            <div class="grid grid-cols-2 gap-4">
+                <div class="glass-panel rounded-xl p-4">
+                    <span class="font-label-caps text-[10px] text-on-surface-variant block mb-1 font-semibold uppercase">Total Speeches</span>
+                    <span id="analytics-overall-count" class="font-headline-lg-mobile text-2xl text-on-surface font-bold">0</span>
+                </div>
+                <div class="glass-panel rounded-xl p-4">
+                    <span class="font-label-caps text-[10px] text-on-surface-variant block mb-1 font-semibold uppercase">Weekly XP</span>
+                    <span class="font-headline-lg-mobile text-2xl text-secondary font-bold user-xp">0 XP</span>
+                </div>
+            </div>
+
+            <!-- Domains grid -->
+            <div>
+                <h3 class="font-label-caps text-xs font-semibold text-on-surface-variant mb-4 uppercase tracking-wider">Proficiency by Domain</h3>
+                <div id="analytics-domains-grid" class="grid grid-cols-2 gap-4">
+                    <!-- Dynamically populated domains -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= SETTINGS VIEW PANEL ================= -->
+        <div id="view-panel-settings" class="view-slide view-hidden flex flex-col gap-6 w-full">
+            <header class="mb-2">
+                <h1 class="font-headline-lg-mobile text-2xl font-bold text-on-surface mb-1">Settings</h1>
+                <p class="font-body-sm text-sm text-on-surface-variant">Manage your profile, preferred settings, and local database cache.</p>
+            </header>
+
+            <!-- Profile Info -->
+            <section class="bg-surface-container-low rounded-xl p-5 flex items-center gap-4 relative overflow-hidden border border-slate-800">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-primary/10 rounded-full blur-2xl pointer-events-none"></div>
+                <div id="settings-profile-avatar" class="w-16 h-16 rounded-full overflow-hidden border border-slate-700">
+                    <!-- Injected via JS -->
+                </div>
+                <div class="flex-1 space-y-0.5">
+                    <h2 id="settings-profile-name" class="font-headline-md text-base text-on-surface font-bold">CS Interview Candidate</h2>
+                    <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                        <span id="settings-profile-role" class="text-xs text-on-surface-variant">Backend Engineer</span>
+                        <span class="text-slate-600 text-xs hidden sm:inline">•</span>
+                        <span class="font-code-md text-xs text-secondary user-level font-semibold">Lvl 1</span>
+                    </div>
+                </div>
+                <button id="settings-profile-edit-btn" class="p-2.5 bg-slate-800 hover:bg-slate-700 text-on-surface hover:text-primary rounded-lg border border-slate-700 active:scale-95 transition-all" title="Edit Profile">
+                    <span class="material-symbols-outlined text-base block">edit</span>
+                </button>
+            </section>
+
+            <!-- Settings Logout Button -->
+            <button id="settings-logout-btn" class="w-full py-3.5 rounded-xl bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 hover:text-red-300 font-label-caps text-xs font-bold transition-colors active:scale-95 flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-base">logout</span>
+                <span>LOG OUT OF SESSION</span>
+            </button>
+
+            <!-- Preferences section -->
+            <section class="bg-surface-container-low rounded-xl p-5 space-y-4 border border-slate-800">
+                <h3 class="font-label-caps text-xs font-semibold text-on-surface-variant flex items-center gap-2 mb-2 uppercase tracking-wider">
+                    <span class="material-symbols-outlined text-base">tune</span>
+                    Preferences
+                </h3>
+                <div class="space-y-4">
+                    <!-- Preferred language select -->
+                    <div class="flex flex-col gap-2">
+                        <label class="font-body-sm text-xs text-on-surface-variant font-medium">Preferred Programming Language</label>
+                        <select id="settings-pref-lang" class="w-full bg-slate-900 border border-slate-700 rounded-md py-2 px-3 text-on-surface font-code-md text-sm outline-none appearance-none focus:border-indigo-500">
+                            <option value="Java">Java</option>
+                            <option value="Python">Python</option>
+                            <option value="C++">C++</option>
+                            <option value="C">C</option>
+                            <option value="JavaScript">JavaScript</option>
+                        </select>
+                    </div>
+
+                    <div class="h-px w-full bg-slate-800"></div>
+
+                    <!-- Dark Mode force -->
+                    <div class="flex items-center justify-between cursor-pointer py-1 select-none" id="settings-dark-mode-row">
+                        <div>
+                            <p class="font-body-md text-sm text-on-surface font-medium">Force Dark Theme</p>
+                            <p class="font-body-sm text-xs text-on-surface-variant">Default interface display styling</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer select-none">
+                            <input type="checkbox" id="settings-dark-mode" class="sr-only peer">
+                            <div class="w-12 h-6 bg-slate-700 rounded-full peer peer-checked:after:translate-x-6 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary transition-colors duration-200"></div>
+                        </label>
+                    </div>
+
+                    <div class="h-px w-full bg-slate-800"></div>
+
+                    <!-- Sound alerts switch -->
+                    <div class="flex items-center justify-between cursor-pointer py-1 select-none" id="settings-sound-mode-row">
+                        <div>
+                            <p class="font-body-md text-sm text-on-surface font-medium">Beep Sound Alerts</p>
+                            <p class="font-body-sm text-xs text-on-surface-variant">Acoustic alert cues on stage transitions</p>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer select-none">
+                            <input type="checkbox" id="settings-sound-toggle" class="sr-only peer">
+                            <div class="w-12 h-6 bg-slate-700 rounded-full peer peer-checked:after:translate-x-6 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary transition-colors duration-200"></div>
+                        </label>
+                    </div>
+
+                    <div class="h-px w-full bg-slate-800"></div>
+
+                    <!-- Scratchpad Editor Theme -->
+                    <div class="flex flex-col gap-2">
+                        <label class="font-body-sm text-xs text-on-surface-variant font-medium">Notes Editor Syntax Theme</label>
+                        <select id="settings-editor-theme" class="w-full bg-slate-900 border border-slate-700 rounded-md py-2 px-3 text-on-surface font-code-md text-sm outline-none appearance-none focus:border-indigo-500">
+                            <option value="Dracula">Dracula</option>
+                            <option value="Monokai Pro">Monokai Pro</option>
+                            <option value="Nord">Nord</option>
+                            <option value="One Dark">One Dark</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Danger Zone cache reset -->
+            <section class="bg-surface-container-low rounded-xl p-5 border border-red-500/20">
+                <h3 class="font-label-caps text-xs font-semibold text-red-400 flex items-center gap-2 mb-4 uppercase tracking-wider">
+                    <span class="material-symbols-outlined text-base">warning</span>
+                    Danger Zone
+                </h3>
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div>
+                        <p class="font-body-md text-sm text-on-surface font-semibold">Delete Local History</p>
+                        <p class="font-body-sm text-xs text-on-surface-variant">Permanently wipe all completed speech logs and reset streak count.</p>
+                    </div>
+                    <button id="settings-clear-history" class="px-4 py-2 rounded bg-red-500/10 text-red-400 border border-red-500/30 hover:bg-red-500/20 font-label-caps text-xs font-bold transition-colors whitespace-nowrap active:scale-95">
+                        CLEAR DATABASE
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="w-full z-50 flex justify-around items-center px-4 py-2.5 bg-slate-900/80 backdrop-blur-xl border-t border-slate-800/50 transition-all">
+        <!-- Home (Mastery) -->
+        <a href="#" data-tab-trigger="mastery" class="flex flex-col items-center justify-center bg-indigo-500/10 text-indigo-400 px-3 py-1.5 rounded-xl transition-all duration-200 active:scale-95">
+            <span class="material-symbols-outlined mb-0.5 text-xl" style="font-variation-settings: 'FILL' 1;">school</span>
+            <span class="font-label-caps text-[9px] font-bold">Mastery</span>
+        </a>
+        <!-- History -->
+        <a href="#" data-tab-trigger="history" class="flex flex-col items-center justify-center text-slate-400 px-3 py-1.5 rounded-xl transition-all duration-200 active:scale-95">
+            <span class="material-symbols-outlined mb-0.5 text-xl" style="font-variation-settings: 'FILL' 0;">history</span>
+            <span class="font-label-caps text-[9px] font-bold">History</span>
+        </a>
+        <!-- Analytics -->
+        <a href="#" data-tab-trigger="analytics" class="flex flex-col items-center justify-center text-slate-400 px-3 py-1.5 rounded-xl transition-all duration-200 active:scale-95">
+            <span class="material-symbols-outlined mb-0.5 text-xl" style="font-variation-settings: 'FILL' 0;">analytics</span>
+            <span class="font-label-caps text-[9px] font-bold">Analytics</span>
+        </a>
+        <!-- Settings -->
+        <a href="#" data-tab-trigger="settings" class="flex flex-col items-center justify-center text-slate-400 px-3 py-1.5 rounded-xl transition-all duration-200 active:scale-95">
+            <span class="material-symbols-outlined mb-0.5 text-xl" style="font-variation-settings: 'FILL' 0;">settings</span>
+            <span class="font-label-caps text-[9px] font-bold">Settings</span>
+        </a>
+    </nav>
+
+    <!-- Profile Edit Modal -->
+    <div id="profile-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+        <div class="glass-panel-heavy rounded-2xl w-full max-w-md p-6 flex flex-col gap-5 border border-slate-700/60 shadow-2xl relative">
+            <h2 class="font-headline-md text-lg text-on-surface font-bold tracking-tight">Edit User Profile</h2>
+            
+            <!-- Display Name -->
+            <div class="flex flex-col gap-1.5">
+                <label class="font-label-caps text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Display Name</label>
+                <input type="text" id="modal-profile-name" class="w-full bg-slate-900 border border-slate-700 rounded-lg py-2.5 px-3 text-on-surface font-body-md text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" placeholder="Enter username...">
+            </div>
+            
+            <!-- Technical Focus / Role -->
+            <div class="flex flex-col gap-1.5">
+                <label class="font-label-caps text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Technical Focus / Target Role</label>
+                <input type="text" id="modal-profile-role" class="w-full bg-slate-900 border border-slate-700 rounded-lg py-2.5 px-3 text-on-surface font-body-md text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary" placeholder="e.g. Backend Engineer, Full Stack, Fresher">
+            </div>
+
+            <!-- Language preference selection -->
+            <div class="flex flex-col gap-1.5">
+                <label class="font-label-caps text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Preferred Programming Language</label>
+                <select id="modal-profile-lang" class="w-full bg-slate-900 border border-slate-700 rounded-lg py-2.5 px-3 text-on-surface font-code-md text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+                    <option value="Java">Java</option>
+                    <option value="Python">Python</option>
+                    <option value="C++">C++</option>
+                    <option value="C">C</option>
+                    <option value="JavaScript">JavaScript</option>
+                </select>
+            </div>
+            
+            <!-- Preset Avatars Grid -->
+            <div class="flex flex-col gap-2">
+                <label class="font-label-caps text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Select Preset Avatar</label>
+                <div class="grid grid-cols-6 gap-2" id="modal-preset-avatars-grid">
+                    <!-- Preset buttons injected dynamically -->
+                </div>
+            </div>
+
+            <!-- Custom URL -->
+            <div class="flex flex-col gap-1.5">
+                <label class="font-label-caps text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Or enter Custom Image URL</label>
+                <input type="text" id="modal-profile-avatar-url" class="w-full bg-slate-900 border border-slate-700 rounded-lg py-2.5 px-3 text-on-surface font-code-md text-xs outline-none focus:border-primary focus:ring-1 focus:ring-primary" placeholder="https://example.com/avatar.png">
+            </div>
+
+            <!-- Action buttons -->
+            <div class="flex justify-end gap-3 mt-3">
+                <button id="modal-profile-cancel" class="px-4 py-2.5 rounded-lg bg-slate-800 text-on-surface-variant hover:text-on-surface font-semibold text-xs font-label-caps active:scale-95 transition-all">CANCEL</button>
+                <button id="modal-profile-save" class="px-4 py-2.5 rounded-lg btn-primary-gradient text-white font-semibold text-xs font-label-caps active:scale-95 transition-all">SAVE CHANGES</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Session Confirmation Modal -->
+    <div id="session-confirm-modal" class="hidden fixed inset-0 z-[101] flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
+        <div class="glass-panel-heavy rounded-2xl w-full max-w-md p-6 flex flex-col gap-5 border border-slate-700/60 shadow-2xl relative text-on-surface">
+            <h2 class="font-headline-md text-lg text-rose-400 font-bold tracking-tight flex items-center gap-2">
+                <span class="material-symbols-outlined text-rose-400 text-xl">warning</span>
+                Active Impromptu Session in Progress!
+            </h2>
+            <p class="text-sm text-slate-300 leading-relaxed">
+                You have an ongoing practice session. Switching tabs will forfeit your current topic and stop the timer. Do you want to stay or discard your session?
+            </p>
+            <div class="flex justify-end gap-3 mt-2">
+                <button id="modal-session-stay" class="px-4 py-2.5 rounded-lg bg-slate-800 text-on-surface hover:bg-slate-700 font-semibold text-xs font-label-caps active:scale-95 transition-all">
+                    Stay & Continue Session
+                </button>
+                <button id="modal-session-leave" class="px-4 py-2.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-semibold text-xs font-label-caps active:scale-95 transition-all">
+                    Forfeit & Leave
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Script -->
+    <script src="./app.js"></script>
+</body>
+</html>
